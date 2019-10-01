@@ -11,14 +11,13 @@ class DishDetail extends Component {
   }
   render() {
     const detail = this.props.dish.comments.map(detail => (
-      <div key={detail.id}>
-        <div>
-          --{detail.author}&nbsp;,&nbsp;{this.formatDate(detail.date)}
-        </div>
+      <ul key={detail.id}>
+        --{detail.author}&nbsp;,&nbsp;{this.formatDate(detail.date)}
         <br />
-        <div>{detail.comment}</div>
+        {detail.comment}
         <br />
-      </div>
+        <br />
+      </ul>
     ));
 
     return (
@@ -37,7 +36,8 @@ class DishDetail extends Component {
         </Card>
         <div className="col-md-5 m-1">
           <h3>Comments</h3>
-          {detail}
+
+          <ul style={{ listStyleType: "none" }}>{detail}</ul>
         </div>
       </div>
     );

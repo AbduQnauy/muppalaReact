@@ -17,14 +17,11 @@ class Menu extends Component {
   }
   renderDish(dish) {
     if (dish) {
-      return (
-        <DishDetail dish={dish}></DishDetail>
-      );
+      return <DishDetail dish={dish}></DishDetail>;
     } else {
       return <div></div>;
     }
   }
-  componentDidMount() {}
   render() {
     const menu = this.props.dishes.map(dish => (
       <div key={dish.id} className="col-12 col-md-5 m-1">
