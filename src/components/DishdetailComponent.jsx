@@ -1,52 +1,65 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
-class DishDetail extends Component {
-  formatDate(date) {
+function RenderDishDetail({ dish }) {
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <Card>
+        <CardImg width="100%" object src={dish.image} alt={dish.name} />
+        <CardBody>
+          <CardTitle>{dish.name}</CardTitle>
+          <CardText>{dish.description}</CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
+}
+function Comment({ detail, formatDate }) {
+  return (
+    <li key={detail.id}>
+      --{detail.author}&nbsp;,&nbsp;{formatDate(detail.date)}
+      <br />
+      {detail.comment}
+      <br />
+      <br />
+    </li>
+  );
+}
+function Comments({ comments }) {
+  const formatDate = date => {
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "short",
       day: "2-digit"
     }).format(new Date(date));
-  }
-  render() {
-    const detail = this.props.dish.comments.map(detail => (
-      <li key={detail.id}>
-        --{detail.author}&nbsp;,&nbsp;{this.formatDate(detail.date)}
-        <br />
-        {detail.comment}
-        <br />
-        <br />
-      </li>
-    ));
+  };
+  return comments.map(detail => (
+    <Comment detail={detail} formatDate={formatDate} />
+  ));
+}
+function RenderAllComments({ comments }) {
+  return (
+    <div className="col-12 col-md-5 m-1">
+      <h3>Comments</h3>
 
+      <ul style={{ listStyleType: "none", padding: "0" }}>
+        <Comments comments={comments} />
+      </ul>
+    </div>
+  );
+}
+
+const DishDetail = props => {
+  if (props.dish != null) {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-5 m-1">
-            <Card>
-              <CardImg
-                width="100%"
-                object
-                src={this.props.dish.image}
-                alt={this.props.dish.name}
-              />
-              <CardBody>
-                <CardTitle>{this.props.dish.name}</CardTitle>
-                <CardText>{this.props.dish.description}</CardText>
-              </CardBody>
-            </Card>
-          </div>
-
-          <div className="col-12 col-md-5 m-1">
-            <h3>Comments</h3>
-
-            <ul style={{ listStyleType: "none", padding: "0" }}>{detail}</ul>
-          </div>
+          <RenderDishDetail dish={props.dish} />
+          <RenderAllComments comments={props.dish.comments} />
         </div>
       </div>
     );
-  }
-}
+  } else return <div></div>;
+};
 
 export default DishDetail;
