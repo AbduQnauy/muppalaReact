@@ -3,11 +3,11 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
 class DishDetail extends Component {
   formatDate(date) {
-    const myDate = new Date(date);
-    const day = myDate.getDay();
-    const year = myDate.getFullYear();
-    const month = myDate.toString().split(" ")[1];
-    return `${month} ${day}, ${year}`;
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit"
+    }).format(new Date(date));
   }
   render() {
     const detail = this.props.dish.comments.map(detail => (
@@ -21,23 +21,28 @@ class DishDetail extends Component {
     ));
 
     return (
-      <div className="row m-1">
-        <Card className="col-md-5 m-1 ">
-          <CardImg
-            width="100%"
-            object
-            src={this.props.dish.image}
-            alt={this.props.dish.name}
-          />
-          <CardBody>
-            <CardTitle>{this.props.dish.name}</CardTitle>
-            <CardText>{this.props.dish.description}</CardText>
-          </CardBody>
-        </Card>
-        <div className="col-md-5 m-1">
-          <h3>Comments</h3>
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-md-5 m-1">
+            <Card>
+              <CardImg
+                width="100%"
+                object
+                src={this.props.dish.image}
+                alt={this.props.dish.name}
+              />
+              <CardBody>
+                <CardTitle>{this.props.dish.name}</CardTitle>
+                <CardText>{this.props.dish.description}</CardText>
+              </CardBody>
+            </Card>
+          </div>
 
-          <ul style={{ listStyleType: "none", padding: "0" }}>{detail}</ul>
+          <div className="col-12 col-md-5 m-1">
+            <h3>Comments</h3>
+
+            <ul style={{ listStyleType: "none", padding: "0" }}>{detail}</ul>
+          </div>
         </div>
       </div>
     );
