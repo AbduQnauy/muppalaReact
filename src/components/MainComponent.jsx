@@ -3,11 +3,12 @@ import { Navbar, NavbarBrand } from "reactstrap";
 import Menu from "./MenuComponent";
 import DishDetail from "./DishdetailComponent";
 import { DISHES } from "../shared/dishes";
+import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 
 class Main extends Component {
   state = {
     dishes: DISHES,
-    // selectedDish: null
     selectedDish: null
   };
 
@@ -19,12 +20,12 @@ class Main extends Component {
   render() {
     return (
       <div className="container">
-        <Navbar dark color="primary">
+        {/* <Navbar dark color="primary">
           <div className="container">
             <NavbarBrand href="/">Restaurant confusion</NavbarBrand>
           </div>
-        </Navbar>
-
+        </Navbar> */}
+        <Header />
         <Menu
           dishes={this.state.dishes}
           onClick={dishId => this.onDishSelect(dishId)}
@@ -37,6 +38,7 @@ class Main extends Component {
             )[0]
           }
         ></DishDetail>
+        <Footer />
       </div>
     );
   }
