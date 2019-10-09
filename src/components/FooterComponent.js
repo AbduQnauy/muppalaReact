@@ -31,11 +31,11 @@ function Footer(props) {
               <br />
               HONG KONG
               <br />
-              <i className="fa fa-phone fa-lg"></i>: +852 1234 5678
+              <i className="fa fa-phone fa-lg"></i> +852 1234 5678
               <br />
-              <i className="fa fa-fax fa-lg"></i>: +852 8765 4321
+              <i className="fa fa-fax fa-lg"></i> +852 8765 4321
               <br />
-              <i className="fa fa-envelope fa-lg"></i>:{" "}
+              <i className="fa fa-envelope fa-lg"></i>{" "}
               <a href="mailto:confusion@food.net">confusion@food.net</a>
             </address>
           </div>
@@ -79,7 +79,7 @@ function Footer(props) {
         </div>
         <div className="row justify-content-center">
           <div className="col-auto">
-            <p>© Copyright 2018 Ristorante Con Fusion</p>
+            <p>© Copyright 2019 Restaurant Confusion</p>
           </div>
         </div>
       </div>
