@@ -1,7 +1,7 @@
 export const LEADERS = [
   {
     id: 0,
-    name: "Peter Pan",
+    name: "Mido Magdy",
     image: "/assets/images/alberto.png",
     designation: "Chief Epicurious Officer",
     abbr: "CEO",
@@ -11,7 +11,7 @@ export const LEADERS = [
   },
   {
     id: 1,
-    name: "Dhanasekaran Witherspoon",
+    name: "Omar Magdy",
     image: "/assets/images/alberto.png",
     designation: "Chief Food Officer",
     abbr: "CFO",
@@ -21,7 +21,7 @@ export const LEADERS = [
   },
   {
     id: 2,
-    name: "Agumbe Tang",
+    name: "Ahmed Magdy",
     image: "/assets/images/alberto.png",
     designation: "Chief Taste Officer",
     abbr: "CTO",
