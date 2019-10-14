@@ -1,4 +1,5 @@
 import React from "react";
+import CommentForm from "./CommentFormComponent";
 import {
   Card,
   CardImg,
@@ -46,7 +47,7 @@ function Comments({ comments }) {
     <Comment detail={detail} formatDate={formatDate} />
   ));
 }
-function RenderAllComments({ comments }) {
+function RenderComments({ comments }) {
   return (
     <div className="col-12 col-md-5 m-1">
       <h3>Comments</h3>
@@ -54,6 +55,7 @@ function RenderAllComments({ comments }) {
       <ul style={{ listStyleType: "none", padding: "0" }}>
         <Comments comments={comments} />
       </ul>
+      <CommentForm />
     </div>
   );
 }
@@ -76,7 +78,7 @@ const DishDetail = props => {
         </div>
         <div className="row">
           <RenderDishDetail dish={props.dish} />
-          <RenderAllComments comments={props.comments} />
+          <RenderComments comments={props.comments} />
         </div>
       </div>
     );
