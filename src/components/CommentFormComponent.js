@@ -25,7 +25,12 @@ class CommentForm extends Component {
     });
   };
   handleSubmit(values) {
-    alert(JSON.stringify(values));
+    this.props.addComment(
+      this.props.dishId,
+      values.select,
+      values.name,
+      values.textarea
+    );
   }
   render() {
     return (
@@ -109,21 +114,11 @@ class CommentForm extends Component {
                     name="textarea"
                     rows="6"
                     className="form-control"
-                    // validators={{
-                    //   required,
-                    //   minLength: minLength(3),
-                    //   maxLength: maxLength(15)
-                    // }}
                   />
                   <Errors
                     className="text-danger"
                     model=".textarea"
                     show="touched"
-                    // messages={{
-                    //   required: "Required ",
-                    //   minLength: "Must be greater than 2 characters",
-                    //   maxLength: "Must be less than 16 characters"
-                    // }}
                   />
                 </Col>
               </Row>
