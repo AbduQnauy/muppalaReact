@@ -1,15 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
 
-export const addComment = (dishId, rating, author, comment) => ({
-  type: ActionTypes.ADD_COMMENT,
-  payload: {
-    dishId,
-    rating,
-    author,
-    comment
-  }
-});
 // ///// DISHES
 export const fetchDishes = () => dispatch => {
   dispatch(dishLoading());
@@ -83,6 +74,51 @@ export const addComments = comments => ({
   type: ActionTypes.ADD_COMMENTS,
   payload: comments
 });
+
+export const addComment = comment => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment
+});
+
+export const postComment = (dishId, rating, author, comment) => dispatch => {
+  const newComment = {
+    dishId,
+    rating,
+    author,
+    comment
+  };
+  newComment.date = new Date().toISOString();
+  return fetch(baseUrl + "comments", {
+    method: "POST",
+    body: JSON.stringify(newComment),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  })
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            "Error" + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(comment => dispatch(addComment(comment)))
+    .catch(error => {
+      console.log("Post comment ", error.message);
+      alert("Your comment could not posted\n Error: " + error.message);
+    });
+};
 
 // ///////////// PROMOTIONS
 export const fetchPromos = () => dispatch => {
