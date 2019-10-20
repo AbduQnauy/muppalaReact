@@ -8,86 +8,52 @@ import {
   Media
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
+import { Stagger, Fade } from "react-animation-components";
 
-//
-{
-  /* <Media> */
-}
-//   <Media left href="#">
-//     <Media object data-src={} />
-//   </Media>
-//   <Media body>
-//     <Media heading>{}</Media>
-//     <h5>{}</h5>
-//     {}
-//   </Media>
-// </Media>
-//
 function RenderLeader({ leaders }) {
   const imgStyle = {
     maxWidth: "80px",
     maxheight: "80px",
     display: "block"
   };
-  return (
-    <React.Fragment>
-      {leaders.map(leader => (
-        <Media
-          key={leader.id}
-          list
-          style={{ display: "flex", marginTop: "3%" }}
-        >
-          <Media left href="#">
-            <Media
-              object
-              src={leader.image}
-              alt={leader.name}
-              title={leader.name}
-              style={imgStyle}
-            />
-          </Media>
-          <Media body style={{ marginLeft: "5%" }}>
-            <Media heading>{leader.name}</Media>
-            <h6 style={{ fontWeight: "normal" }}>{leader.designation}</h6>
-            {leader.description}
-          </Media>
-        </Media>
-      ))}
-    </React.Fragment>
-  );
-}
-
-{
-  /* <Media key={leader.id} list>
-          <Media left href="#">
-            <img src={leader.image} alt={leader.name} />
-          </Media>
-          <Media body>
-            <Media heading>{leader.name}</Media>
-            <h6 style={{ fontWeight: "normal" }}>{leader.designation}</h6>
-            {leader.description}
-          </Media>
-        </Media> */
-}
-
-{
-  /* <div>{leader.name}</div> */
-}
-{
-  /* <div>{leader.designation}</div> */
-}
-{
-  /* <img src={leader.image} /> */
-}
-{
-  /* <div>{leader.description}</div> */
+  if (leaders.isLoading) return <Loading />;
+  else if (leaders.errMess) return <h4>{leaders.errMess}</h4>;
+  else
+    return (
+      <React.Fragment>
+        <Stagger in>
+          {leaders.leaders.map(leader => (
+            <Fade in>
+              <Media
+                key={leader.id}
+                list
+                style={{ display: "flex", marginTop: "3%" }}
+              >
+                <Media left href="#">
+                  <Media
+                    object
+                    src={baseUrl + leader.image}
+                    alt={leader.name}
+                    title={leader.name}
+                    style={imgStyle}
+                  />
+                </Media>
+                <Media body style={{ marginLeft: "5%" }}>
+                  <Media heading>{leader.name}</Media>
+                  <h6 style={{ fontWeight: "normal" }}>{leader.designation}</h6>
+                  {leader.description}
+                </Media>
+              </Media>
+            </Fade>
+          ))}
+        </Stagger>
+      </React.Fragment>
+    );
 }
 
 function About(props) {
-  const leaders = props.leaders.map(leader => {
-    return <p>Leader {leader.name}</p>;
-  });
-
   return (
     <div className="container">
       <div className="row">

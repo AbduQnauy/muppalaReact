@@ -1,10 +1,50 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
+import { actions } from "react-redux-form";
 
+// ////////////////// Form
+export const postForm = values => dispatch => {
+  return fetch(baseUrl + "feedback", {
+    method: "POST",
+    body: JSON.stringify(values),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
+  })
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            "Error" + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(response => {
+      alert("Current State is: " + JSON.stringify(response));
+    })
+    .then(() => dispatch(actions.reset("feedback")))
+    .catch(error => {
+      alert(
+        "Sorry Some thing get wrong\n Form's information doesn't submitted\n " +
+          error.message +
+          "\n :("
+      );
+      dispatch(actions.reset("feedback"));
+    });
+};
 // ///// DISHES
 export const fetchDishes = () => dispatch => {
   dispatch(dishLoading());
-  // return fetch(baseUrl + "dishes")
   return fetch(baseUrl + "dishes")
     .then(
       response => {
@@ -157,4 +197,43 @@ export const promosFailed = errmess => ({
 export const addPromos = promos => ({
   type: ActionTypes.ADD_PROMOS,
   payload: promos
+});
+
+// //////////////// LEADERS
+export const fetchLeaders = () => dispatch => {
+  dispatch(leadersLoading());
+  return fetch(baseUrl + "leaders")
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            "Error" + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)));
+};
+
+export const addLeaders = leaders => ({
+  type: ActionTypes.ADD_LEADERS,
+  payload: leaders
+});
+
+export const leadersFailed = errmess => ({
+  type: ActionTypes.LEADERS_FAILED,
+  payload: errmess
+});
+
+export const leadersLoading = () => ({
+  type: ActionTypes.LEADERS_LOADING
 });
